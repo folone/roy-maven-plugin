@@ -2,6 +2,7 @@
 Roy maven plugin compiles your [roy scripts](http://roy.brianmckenna.org/ "roy scripts") to javascript. By default it executes during `process-sources` phase.
 
 ## Installation
+* It definitely needs roy, so `npm install roy`.
 * `git clone https://github.com/folone/roy-maven-plugin`
 * `cd roy-maven-plugin`
 * `mvn clean install`
