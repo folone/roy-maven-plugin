@@ -11,12 +11,12 @@ Roy plugin is now installed into your local maven repo. You can start using it.
 Add the following to your pom.xml:
 
     <project>
-    ...
+      ...
       <properties>
         <js-directory>src/main/webapp/js</js-directory><!-- Path to your js files -->
         <roy-directory>src/main/webapp/roy</roy-directory><!-- Path to your roy files -->
       </properties>
-    ...
+      ...
       <build>
       ...
         <plugins>
@@ -24,7 +24,7 @@ Add the following to your pom.xml:
             <plugin>
                 <groupId>info.folone.roy.maven</groupId>
                 <artifactId>roy-plugin</artifactId>
-		<executions>
+               <executions>
                     <execution>
                         <goals>
                             <goal>compile</goal>
