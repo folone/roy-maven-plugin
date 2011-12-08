@@ -45,16 +45,9 @@ public class RoyMojo
      */
     private File inputDirectory;
 
-    /**
-     * Location of roy.
-     * @parameter expression="${roy-home}"
-     * @required
-     */
-    private File royDirectory;
-
     public void execute()
         throws MojoExecutionException
     {
-        MojoHelper.doActualWork(inputDirectory, outputDirectory, royDirectory, getLog());
+        MojoHelper.doActualWork(inputDirectory, outputDirectory, getLog());
     }
 }

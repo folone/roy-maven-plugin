@@ -8,11 +8,11 @@ package info.folone.roy.maven {
   object MojoHelper {
     private var log: Log = _
 
-    def doActualWork(in: File, out: File, royHome: File, logger: Log) {
+    def doActualWork(in: File, out: File, logger: Log) {
       log = logger
       val filesToCompile = recursiveListFiles(in, """.*\.roy$""".r)
       log.info("Compiling " + filesToCompile.size + " roy files...")
-      filesToCompile foreach { compileFile(out, royHome) }
+      filesToCompile foreach { compileFile(out) }
     }
 
     private def recursiveListFiles(f: File, r: Regex): Array[File] = {
@@ -21,8 +21,8 @@ package info.folone.roy.maven {
       good ++ these.filter { _.isDirectory }.flatMap { recursiveListFiles(_, r) }
     }
 
-    private def compileFile(o: File, roy: File)(f: File) = {
-      val result = ("node " + roy.getPath + "/roy " + f.getPath) !!
+    private def compileFile(o: File)(f: File) = {
+      val result = ("roy " + f.getPath) !!
       val jsFile = new File(fileExtToJs(f.getPath))
       jsFile.renameTo(new File(o, jsFile.getName))
       log.info(result)
