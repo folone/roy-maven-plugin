@@ -12,6 +12,7 @@ package info.folone.roy.maven {
       log = logger
       val filesToCompile = recursiveListFiles(in, """.*\.roy$""".r)
       log.info("Compiling " + filesToCompile.size + " roy files...")
+      out.mkdirs()
       filesToCompile foreach { compileFile(out) }
     }
 
