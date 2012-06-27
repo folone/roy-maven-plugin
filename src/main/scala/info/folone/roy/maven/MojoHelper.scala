@@ -11,16 +11,23 @@ package info.folone.roy.maven {
     def doActualWork(in: File, out: File, logger: Log) = {
       implicit val log = logger
       implicit val o = out
-      val filesToCompile = recursiveListFiles(in, """.*\.roy$""".r)
-      log.info("Compiling " + filesToCompile.size + " roy files...")
-      out.mkdirs()
-      filesToCompile.toList.map (compileFile).sequence
+      for {
+        filesToCompile ← listFiles(in, """.*\.roy$""".r)
+        result         ← filesToCompile.toList.map (compileFile).sequence
+      } yield {
+        log.info("Compiling " + filesToCompile.size + " roy files...")
+        out.mkdirs()
+        result
+      }
     }
 
-    private def recursiveListFiles(f: File, r: Regex): Array[File] = {
-      val these = f.listFiles
-      val good = these.filter(f => r.findFirstIn(f.getName).isDefined)
-      good ++ these.filter { _.isDirectory }.flatMap { recursiveListFiles(_, r) }
+    private def listFiles(f: File, r: Regex) = io {
+      def recursiveListFiles(f: File): Array[File] = {
+        val these = f.listFiles
+        val good = these.filter(f ⇒ r.findFirstIn(f.getName).isDefined)
+        good ++ these.filter { _.isDirectory }.flatMap { recursiveListFiles(_) }
+      }
+      recursiveListFiles(f)
     }
 
     private def compileFile(f: File)(implicit log: Log, o: File) = io {
