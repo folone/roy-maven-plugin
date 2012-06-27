@@ -48,6 +48,6 @@ public class RoyMojo
     public void execute()
         throws MojoExecutionException
     {
-        MojoHelper.doActualWork(inputDirectory, outputDirectory, getLog());
+        MojoHelper.doActualWork(inputDirectory, outputDirectory, getLog()).unsafePerformIO();
     }
 }

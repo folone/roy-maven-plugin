@@ -1,5 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>info.folone.roy.maven</groupId>
   <artifactId>roy-plugin</artifactId>
@@ -8,8 +8,8 @@
   <name>roy-plugin Maven Mojo</name>
   <url>http://maven.apache.org</url>
 
-<properties>
-    <scala.version>2.9.1</scala.version>
+  <properties>
+    <scala.version>2.9.2</scala.version>
   </properties>
 
   <dependencies>
@@ -29,52 +29,56 @@
       <artifactId>scala-library</artifactId>
       <version>${scala.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.scalaz</groupId>
+      <artifactId>scalaz-core_${scala.version}</artifactId>
+      <version>6.0.4</version>
+    </dependency>
   </dependencies>
 
   <repositories>
-        <repository>
-            <id>scala-tools.releases</id>
-            <url>http://scala-tools.org/repo-releases</url>
-        </repository>
+    <repository>
+      <id>scala-tools.releases</id>
+      <url>http://scala-tools.org/repo-releases</url>
+    </repository>
   </repositories>
 
-<build>
-        <plugins>
-                <plugin>
-                        <groupId>org.scala-tools</groupId>
-                        <artifactId>maven-scala-plugin</artifactId>
-                        <executions>
-
-                                <execution>
-                                        <id>compile</id>
-                                        <goals>
-                                                <goal>compile</goal>
-                                        </goals>
-                                        <phase>compile</phase>
-                                </execution>
-                                <execution>
-                                        <id>test-compile</id>
-                                        <goals>
-                                                <goal>testCompile</goal>
-                                        </goals>
-                                        <phase>test-compile</phase>
-                                </execution>
-                <execution>
-                   <phase>process-resources</phase>
-                   <goals>
-                     <goal>compile</goal>
-                   </goals>
-                </execution>
-                        </executions>
-                </plugin>
-                <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                                <source>1.5</source>
-                                <target>1.5</target>
-                        </configuration>
-                </plugin>
-        </plugins>      
-</build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.scala-tools</groupId>
+        <artifactId>maven-scala-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <phase>compile</phase>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <phase>test-compile</phase>
+          </execution>
+          <execution>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>      
+  </build>
 
 </project>
