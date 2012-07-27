@@ -4,8 +4,10 @@ package info.folone.roy.maven {
   import scala.util.matching.Regex
   import scala.sys.process._
   import org.apache.maven.plugin.logging.Log
-  import scalaz._, Scalaz._
-  import scalaz.effects._
+  import scalaz._
+  import std.list._
+  import syntax.traverse._
+  import effect.IO
 
   object MojoHelper {
     def doActualWork(in: File, out: File, logger: Log) = {
@@ -21,16 +23,16 @@ package info.folone.roy.maven {
       }
     }
 
-    private def listFiles(f: File, r: Regex) = io {
+    private def listFiles(f: File, r: Regex) = IO {
       def recursiveListFiles(f: File): Array[File] = {
         val these = f.listFiles
-        val good = these.filter(f ⇒ r.findFirstIn(f.getName).isDefined)
-        good ++ these.filter { _.isDirectory }.flatMap { recursiveListFiles(_) }
+        val good  = these.filter(f ⇒ r.findFirstIn(f.getName).isDefined)
+        good ++ these.filter(_.isDirectory).flatMap(recursiveListFiles(_))
       }
       recursiveListFiles(f)
     }
 
-    private def compileFile(f: File)(implicit log: Log, o: File) = io {
+    private def compileFile(f: File)(implicit log: Log, o: File) = IO {
       val result = ("roy " + f.getPath) !!
       val jsFile = new File(fileExtToJs(f.getPath))
       jsFile.renameTo(new File(o, jsFile.getName))
