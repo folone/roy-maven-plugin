@@ -15,7 +15,7 @@ package info.folone.roy.maven {
       implicit val o = out
       for {
         filesToCompile ← listFiles(in, """.*\.roy$""".r)
-        result         ← filesToCompile.toList.map (compileFile).sequence
+        result         ← filesToCompile.toList.map(compileFile).sequence
       } yield {
         log.info("Compiling " + filesToCompile.size + " roy files...")
         out.mkdirs()
