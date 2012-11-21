@@ -9,7 +9,7 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <scala.version>2.9.2</scala.version>
+    <scala.version>2.10.0-RC2</scala.version>
   </properties>
 
   <dependencies>
